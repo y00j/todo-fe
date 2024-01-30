@@ -11,7 +11,7 @@ function LoginSignup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/api/login', {
+            const response = await fetch('localhost:3000/api/login', {
                 credentials: 'same-origin',
                 method: 'POST',
                 mode: "cors", // no-cors, *cors, same-origin
