@@ -1,0 +1,4 @@
+.todoListItem {
+    display: flex;
+    flex-direction: row;
+}

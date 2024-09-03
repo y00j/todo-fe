@@ -1,10 +1,16 @@
+import { useContext } from "react";
+import LoginSignup from "./components/LoginSignup";
+import TodoList from "./components/TodoList";
+import AuthContext from "./context/auth/AuthContext";
+import "./App.css";
 
-import './App.css';
-import LoginSignup from './components/LoginSignup';
 function App() {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="App">
-      <LoginSignup/>
+      {/* {user ? <TodoList /> : <LoginSignup />} */}
+      <TodoList></TodoList>
     </div>
   );
 }
