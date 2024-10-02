@@ -35,7 +35,7 @@ export default function AuthProvider({ children }) {
     }
     return (
         <AuthContext.Provider value={{ user, login, logout }}>
-            {isLoading ? null : children}
+            {false ? null : children}
         </AuthContext.Provider>
 
     )

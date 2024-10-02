@@ -3,24 +3,15 @@ import fetchTodos from "../../hooks/fetchTodos";
 import addTodo from "../../hooks/addTodo";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import AuthContext from "../../context/auth/AuthContext";
+import useFetchTodos from "../../hooks/useFetchTodos";
 export default function TodoList() {
-  const [todos, setTodos] = useState(null);
+  const [todos, setTodos] = useFetchTodos();
   const [text, setText] = useState("");
 
   const { logout } = useContext(AuthContext);
 
-  useEffect(() => {
-    const getTodos = async () => {
-      const todos = await fetchTodos();
-      console.log(todos)
-      setTodos([...todos]);
-    };
-
-    getTodos();
-  }, []);
-
   const handleDelete = async (id) => {
-    const result = await fetch(`${import.meta.env.VITE_API_URL}/todo/${id}`, {
+    const result = await fetch(`${import.meta.env.VITE_API_URL}/todos/${id}`, {
       method: "DELETE",
       credentials: "include",
       mode: "cors",
@@ -65,7 +56,7 @@ export default function TodoList() {
           ></input>
           <ul style={{ listStyleType: "none" }}>
             {todos.map((todo) => (
-              <TodoListItem key={todo.id} {...{ todo, handleDelete }} />
+              <TodoListItem draggable={true} onDragStart={(e) => console.log("hi", e)} key={todo.id} {...{ todo, handleDelete }} />
             ))}
           </ul>
           <button onClick={logout}>logout</button>

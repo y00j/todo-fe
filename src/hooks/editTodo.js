@@ -1,6 +1,6 @@
 export default async function editTodo(id, title) {
     try {
-        let response = await fetch(`${import.meta.env.VITE_API_URL}/todo/${id}`, {
+        let response = await fetch(`${import.meta.env.VITE_API_URL}/todos/${id}`, {
             credentials: 'include',
             mode: "cors", // no-cors, *cors, same-origin
             method: 'PATCH',

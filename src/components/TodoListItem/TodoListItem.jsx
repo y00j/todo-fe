@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import editTodo from "../../hooks/editTodo";
 import "./todoListItem.css"
 
-export default function TodoListItem ({todo, handleDelete}) {
+export default function TodoListItem ({todo, handleDelete, ...props}) {
     const [editMode, setEditMode] = useState(false);
     const [todoItem, setTodoItem] = useState(todo);
     const {id, title, completed} = todoItem;
@@ -19,7 +19,7 @@ export default function TodoListItem ({todo, handleDelete}) {
     }
     const handleCheck = async (id) => {
         const result = await fetch(
-          `${import.meta.env.VITE_API_URL}/todo/${id}/toggle`,
+          `${import.meta.env.VITE_API_URL}/todos/${id}/toggle`,
           {
             method: "PATCH",
             credentials: "include",
@@ -48,8 +48,21 @@ export default function TodoListItem ({todo, handleDelete}) {
         setTodoItem({...todoItem, title: e.target.value})
     }
 
+    const handleDragStart = (e) => {
+        console.log(`dragstart: ${e}`);
+      }
+      
+    const handleDragOver = (e) => {
+        console.log("dragover", e.target);
+    }
+
     return (
-        <div className="todoListItem">
+        <li 
+            // draggable={true} 
+            // onDragStart={handleDragStart}
+            // onDragOver={handleDragOver}
+            {...props}
+            className="todoListItem">
             <input 
                 type="text" 
                 style={{textDecoration: completed ? 'line-through' : 'none'}}
@@ -62,6 +75,6 @@ export default function TodoListItem ({todo, handleDelete}) {
             />
             <input onChange={() => handleCheck(id)} type="checkbox" checked={completed}/>
             <button onClick={() => handleDelete(id)}>delete</button>
-        </div>
+        </li>
     )
 }
