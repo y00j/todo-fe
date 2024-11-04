@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoadingContext from "./LoadingContext";
 
-export default function LoadingProvider({children}) {
+export default function LoadingProvider({children}: {children: React.ReactNode}) {
     const [isLoading, setIsLoading] = useState(false);
 
     return(

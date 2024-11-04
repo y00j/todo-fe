@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import LoginSignup from "./components/LoginSignup";
 import TodoList from "./components/TodoList";
 import AuthContext from "./context/auth/AuthContext";
+import LoginSignup from "./components/LoginSignup";
+import Timer from "./components/Timer/Timer";
 import "./App.css";
 
 function App() {
@@ -9,8 +10,9 @@ function App() {
 
   return (
     <div className="App">
-      {/* {user ? <TodoList /> : <LoginSignup />} */}
-      <TodoList></TodoList>
+      {user ? <TodoList /> : <LoginSignup />}
+      {/* <TodoList></TodoList> */}
+      <Timer />
     </div>
   );
 }

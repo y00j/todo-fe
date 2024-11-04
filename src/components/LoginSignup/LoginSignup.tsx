@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import './loginSignup.css';
 import AuthContext from '../../context/auth/AuthContext';
 
@@ -6,11 +6,11 @@ import AuthContext from '../../context/auth/AuthContext';
 function LoginSignup() {
     const { login } = useContext(AuthContext);
     const [form, setForm] = useState({ email: '', password: '' });
-    const handleUpdateForm = (e) => {
+    const handleUpdateForm = (e : React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value })
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const { email, password } = form;

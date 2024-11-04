@@ -1,16 +1,16 @@
-import { useState, useEffect, useContext } from "react";
-import fetchTodos from "../../hooks/fetchTodos";
+import React, { useState, useEffect, useContext } from "react";
 import addTodo from "../../hooks/addTodo";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import AuthContext from "../../context/auth/AuthContext";
-import useFetchTodos from "../../hooks/useFetchTodos";
-export default function TodoList() {
+import useFetchTodos, { Todo } from "../../hooks/useFetchTodos";
+
+export default function TodoList() : React.ReactElement {
   const [todos, setTodos] = useFetchTodos();
   const [text, setText] = useState("");
 
   const { logout } = useContext(AuthContext);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: number) => {
     const result = await fetch(`${import.meta.env.VITE_API_URL}/todos/${id}`, {
       method: "DELETE",
       credentials: "include",
@@ -28,11 +28,11 @@ export default function TodoList() {
     }
   };
 
-  const handleTextChange = (e) => {
-    setText(e.target.value);
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target?.value);
   };
 
-  const handleSubmitTodo = async (e) => {
+  const handleSubmitTodo = async (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       let newTodo = await addTodo(text);
       setTodos([...todos, newTodo]);
@@ -55,11 +55,11 @@ export default function TodoList() {
             required
           ></input>
           <ul style={{ listStyleType: "none" }}>
-            {todos.map((todo) => (
-              <TodoListItem draggable={true} onDragStart={(e) => console.log("hi", e)} key={todo.id} {...{ todo, handleDelete }} />
+            {todos.map((todo: Todo) => (
+              <TodoListItem draggable={true} onDragStart={(e:any) => console.log("hi", e)} key={todo.id} {...{todo, handleDelete}} />
             ))}
           </ul>
-          <button onClick={logout}>logout</button>
+          <button onClick={() => logout}>logout</button>
         </>
       ) : null}
     </>

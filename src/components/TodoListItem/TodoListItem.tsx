@@ -1,8 +1,14 @@
 import { useState, useRef } from "react";
 import editTodo from "../../hooks/editTodo";
 import "./todoListItem.css"
+import { Todo } from "../../hooks/useFetchTodos";
 
-export default function TodoListItem ({todo, handleDelete, ...props}) {
+type Props = {
+    todo: Todo,
+    handleDelete: (id: number) => void
+}
+
+export default function TodoListItem ({todo, handleDelete}: Props) {
     const [editMode, setEditMode] = useState(false);
     const [todoItem, setTodoItem] = useState(todo);
     const {id, title, completed} = todoItem;
@@ -12,12 +18,12 @@ export default function TodoListItem ({todo, handleDelete, ...props}) {
         setEditMode(true);
     }
 
-    const handleEnter = (e) => {
+    const handleEnter = (e : React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
-            e.target.blur()
+            e.currentTarget.blur()
         }
     }
-    const handleCheck = async (id) => {
+    const handleCheck = async (id : number) => {
         const result = await fetch(
           `${import.meta.env.VITE_API_URL}/todos/${id}/toggle`,
           {
@@ -61,7 +67,7 @@ export default function TodoListItem ({todo, handleDelete, ...props}) {
             // draggable={true} 
             // onDragStart={handleDragStart}
             // onDragOver={handleDragOver}
-            {...props}
+            // {...props}
             className="todoListItem">
             <input 
                 type="text" 
